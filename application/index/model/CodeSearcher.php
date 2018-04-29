@@ -2,6 +2,7 @@
 namespace app\index\model;
 
 use think\Db;
+use phpDocumentor\Reflection\Types\Array_;
 
 class CodeSearcher
 {
@@ -25,6 +26,10 @@ class CodeSearcher
         }
     }
     
+    /**用数字查询代码，自动纠错，依次删除最后一位数字，直到查询结果不为null
+     * @param string $code
+     * @return NULL|array
+     */
     public function codeSearch($code){
         $result = null;
         while (($result = $this->codeOnlySearch($code)) == null){
@@ -41,27 +46,15 @@ class CodeSearcher
         return mb_substr($code,0,mb_strlen($code)-1);
     }
     
+    /**精确的用数字查询代码 eg:11110
+     * @param String $code
+     * @return Array
+     */
     public function codeOnlySearch($code){
         $result = db( 'daima2016' )->where ('违法代码', 'like', '%'.$code.'%')->field ( 'ID', TRUE )->select ();
         return $result;
     }
 
-    private function count_table_row($name)
-    {
-        return count(db($name)->select());
-    }
-
-    private function is_fa($name)
-    {
-        switch ($name) {
-            case "法":
-            case "道交法":
-                return true;
-            
-            default:
-                return false;
-        }
-    }
     
     public function connectBus($chePai){
         

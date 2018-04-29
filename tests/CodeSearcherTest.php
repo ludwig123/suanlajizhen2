@@ -5,7 +5,7 @@ namespace tests;
 use PHPUnit\Framework\TestCase;
 use app\index\model\CodeSearcher;
 
-class SearchEngineTest extends TestCase
+class CodeSearcherTest extends TestCase
 {
 
     private $searchEngine;
@@ -52,7 +52,6 @@ class SearchEngineTest extends TestCase
     public function testCodeSearch(){
         $code = '11110';
         $result = $this->searchEngine->codeSearch($code);
-        var_dump($result);
         //返回的11110 是 float 格式！
         $this->assertEquals($code, $result[0]['违法代码']);
         
