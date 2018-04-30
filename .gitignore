@@ -4,3 +4,6 @@
 *.log
 thinkphp
 .env
+.build*
+.project
+/.settings
