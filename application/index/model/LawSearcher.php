@@ -9,7 +9,7 @@ define('TABLE_NAME', [
     '条例' => 'law_tiaoli',
     '机动车规定' => 'law_jidongcheguiding',
     '驾驶证规定' => 'law_jiashizhengguiding',
-    '校车规定' => 'law_xiaocheguiding'
+    '校车规定' => 'law_xiaoche'
 ]);
 class LawSearcher{
 
