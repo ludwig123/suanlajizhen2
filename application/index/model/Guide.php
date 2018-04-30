@@ -32,7 +32,7 @@ class Guide
             $waiter = $this->newWaiter();
         }
         
-        $waiter->reply($this->input);
+       return $waiter->reply($this->input);
         
     }
     
@@ -42,6 +42,9 @@ class Guide
     }
     
     public function newWaiter(){
+        if ($this->isCarSearch()){
+            return new BusWaiter();
+        }
         return new LawWaiter($this->input);
     }
     

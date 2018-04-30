@@ -62,10 +62,32 @@ class GuideTest extends PHPUnit_Framework_TestCase
     
     
     public function testCarSearch(){
+        $userInput = "湘D9999922";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        $reply = $guide->startTalk();
+        $this->assertContains("车牌后5位", $reply);
+        
+        $userInput = "湘DD999车";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        $reply = $guide->startTalk();
+         $this->assertContains("车牌后5位", $reply);
+
+        $userInput = "湘粤DD9999922";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        $reply = $guide->startTalk();
+        $this->assertContains("车牌第2位", $reply);
+        
         $userInput = "湘D99999";
         $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
         $reply = $guide->startTalk();
-        $this->assertContains("您的输入不存在", $reply);
+        $this->assertContains("未查询到接驳", $reply);
+        
+        $userInput = "沪DA3398";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        $reply = $guide->startTalk();
+        $this->assertContains($userInput, $reply);
+
+        
     }
     
 
