@@ -9,7 +9,7 @@ namespace app\index\model;
 class Tokenizer{
     
     /**
-     * @param Array $wordsArr 一维字符串组成数组
+     * @param Array $wordsArr 字符串数组
      * @return Array $keyArr 一维数组，由若干个关键字组成的<br>
      * 支持提取法律名称和整数<br>
      * original 原始的词组<br>

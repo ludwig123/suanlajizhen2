@@ -49,14 +49,13 @@ class TokenizerTest extends PHPUnit_Framework_TestCase
     {
         $text = "傻逼驾驶证";
        $result =  $this->tokenizer->split($text);
-       var_dump($result);
        $this->assertEquals("驾驶证", $result[0]);
        
-       $text = "*_=/驾驶驾驶证超过";
+       $text = "*_=/驾驶驾驶证我逾期";
        $result =  $this->tokenizer->split($text);
-       var_dump($result);
+      // var_dump($result);
        $this->assertEquals("驾驶", $result[0]);
-       $this->assertContains("超过",$result[2]);
+       $this->assertContains("逾期",$result[2]);
     }
 
 }

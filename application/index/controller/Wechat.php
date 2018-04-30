@@ -1,6 +1,7 @@
 <?php
 namespace app\index\controller;
 use EasyWeChat\Factory;
+use app\index\model\Guide;
 
 class Wechat
 {
@@ -28,7 +29,9 @@ class Wechat
                     return '收到事件消息';
                     break;
                 case 'text':
-                    return '收到文字消息';
+                    $guide = new Guide($message['FromUserName'], $message['Content']);
+                    $reply = $guide->start_talk();
+                    return $reply;
                     break;
                 case 'image':
                     return '收到图片消息';
