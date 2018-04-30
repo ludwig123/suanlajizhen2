@@ -3,6 +3,10 @@ namespace app\index\model;
 
 use app\index\model\Tokenizer;
 
+/**导购员
+ * @author ludwig
+ *
+ */
 class Guide
 {
     private $userID, $input;
@@ -19,7 +23,7 @@ class Guide
         
     }
 
-    public function start_talk(){
+    public function startTalk(){
         
         if (count($this->input) == 0) return "您的输入不存在！";
         
@@ -28,7 +32,7 @@ class Guide
             $waiter = $this->newWaiter();
         }
         
-        $waiter->reply();
+        $waiter->reply($this->input);
         
     }
     
@@ -38,24 +42,24 @@ class Guide
     }
     
     public function newWaiter(){
-        return new LawWaiter();
+        return new LawWaiter($this->input);
     }
     
-    private function isCarSearch($input){
+    private function isCarSearch(){
         $dictstr = "京 津 沪 渝 蒙 新 藏 宁 桂 港 澳 黑 吉 辽 晋 冀 青 鲁 豫 苏 皖 浙 闽 赣 湘 鄂 粤 琼 甘 陕 贵 川 云";
         $dictArr = explode(" ", $dictstr);
         foreach ($dictArr as $v){
-            if ($v == $input[0])
+            if ($v == $this->input[0])
                 return true;
-        }      
+        } 
         return false;
     }
     
-    private function isLawSearch($input){
+    private function isLawSearch(){
         
     }
     
-    private function isCodeSearch($input){
+    private function isCodeSearch(){
         
     }
 }

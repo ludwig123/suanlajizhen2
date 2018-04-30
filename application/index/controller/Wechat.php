@@ -30,7 +30,7 @@ class Wechat
                     break;
                 case 'text':
                     $guide = new Guide($message['FromUserName'], $message['Content']);
-                    $reply = $guide->start_talk();
+                    $reply = $guide->startTalk();
                     return $reply;
                     break;
                 case 'image':
