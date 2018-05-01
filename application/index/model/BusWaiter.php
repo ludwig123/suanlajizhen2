@@ -1,8 +1,6 @@
 <?php
 namespace app\index\model;
 
-use app\index\model\Waiter;
-
 class BusWaiter implements Waiter
 {
     public function reply($input)
@@ -39,9 +37,7 @@ class BusWaiter implements Waiter
         if ($mathces[0] ==null)
         {
             return false;
-            
         }
-        
         return true;
             
     }

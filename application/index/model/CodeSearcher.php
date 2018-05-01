@@ -6,24 +6,8 @@ use phpDocumentor\Reflection\Types\Array_;
 
 class CodeSearcher
 {
-    public function  law($name, $index){
-        if ($this->is_fa()){
-            return $this->law_fa($index);
-        }
-    }
-
-    public function law_fa($index)
-    {
-        $max = $this->count_table_row("law_fa");
+    public function search($order){
         
-        if ($index < 1) {return "index should >= 1";} 
-        
-        if ($index > $max) {return "index should <= " . $max;}
-        
-        if ($index <= $max && $index >= 1) {
-            $result = Db::name('law_fa')->where('id', $index)->find();
-            return $result;
-        }
     }
     
     /**用数字查询代码，自动纠错，依次删除最后一位数字，直到查询结果不为null

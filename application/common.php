@@ -1,17 +1,27 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: 流年 <liu21st@gmail.com>
-// +----------------------------------------------------------------------
 
 // 应用公共文件
 
-function count_table_row($name)
+/**统计数据表的行数
+ * @param string $name
+ * @return number
+ */
+function countTableRow($name)
 {
     return count(db($name)->select());
+}
+
+/**目标文本是否存在指定字符，只要存在就返回true
+ * @param String $pattern eg:/[0-9]?/u
+ * @param String $srcText 目标文本
+ * @return boolean
+ */
+function isMatch($pattern , $srcText){
+    $mathces = array();
+    preg_match_all($pattern, $srcText, $mathces);
+    if ($mathces[0] ==null)
+    {
+        return false;
+    }
+    return true;
 }

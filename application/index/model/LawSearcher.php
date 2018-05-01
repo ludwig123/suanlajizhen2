@@ -23,7 +23,7 @@ class LawSearcher{
     
     private function law_real($tableName, $index)
     {
-        $max = count_table_row($tableName);
+        $max = countTableRow($tableName);
         
         if ($index < 1) {return "index should >= 1";}
         
