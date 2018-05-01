@@ -8,24 +8,14 @@ use app\index\model\Guide;
 class GuideTest extends PHPUnit_Framework_TestCase
 {
 
-    /**
-     *
-     * @var Guide
-     */
     private $guide;
 
-    /**
-     * Prepares the environment before running a test.
-     */
     protected function setUp()
     {
         parent::setUp();
         
     }
 
-    /**
-     * Cleans up the environment after running a test.
-     */
     protected function tearDown()
     {
         // TODO Auto-generated GuideTest::tearDown()
@@ -90,21 +80,5 @@ class GuideTest extends PHPUnit_Framework_TestCase
         
     }
     
-
-    /**
-     * Tests Guide->lastWaiter()
-     */
-    public function testLastWaiter()
-    {
-
-    }
-
-    /**
-     * Tests Guide->newWaiter()
-     */
-    public function testNewWaiter()
-    {
-        
-    }
 }
 

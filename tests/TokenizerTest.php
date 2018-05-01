@@ -45,7 +45,7 @@ class TokenizerTest extends PHPUnit_Framework_TestCase
         // TODO Auto-generated constructor
     }
 
-    public function testSplit()
+    public function testCodeSplit()
     {
         $text = "傻逼驾驶证";
        $result =  $this->tokenizer->split($text);
@@ -53,9 +53,27 @@ class TokenizerTest extends PHPUnit_Framework_TestCase
        
        $text = "*_=/驾驶驾驶证我逾期";
        $result =  $this->tokenizer->split($text);
-      // var_dump($result);
+       var_dump($result);
        $this->assertEquals("驾驶", $result[0]);
        $this->assertContains("逾期",$result[2]);
+    }
+    
+    public function testLawInputSplit(){
+        $text = "法15条";
+        $result =  $this->tokenizer->split($text);
+
+        $this->assertEquals("法", $result[0]);
+        
+        
+        $text = "道交法 12 条";
+        $result =  $this->tokenizer->split($text);
+        var_dump($result);
+        $this->assertEquals("道交法", $result[0]);
+        
+        
+        $text = "条例25条";
+        $result =  $this->tokenizer->split($text);
+        $this->assertEquals("条例", $result[0]);
     }
 
 }

@@ -1,14 +1,16 @@
 <?php
 namespace app\index\model;
 
-use app\index\model\Waiter;
 
 class LawWaiter implements Waiter{
     
     public function reply($input)
     {
-        var_dump($input);
-        return "i m law waiter!";
+        $lawName = $input[0];
+        $lawIndex = $input[1];
+        $lawSearcher = new LawSearcher();
+        
+        return $lawSearcher->law($lawName, $lawIndex);
     }
 
     

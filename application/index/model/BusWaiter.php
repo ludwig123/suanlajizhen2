@@ -28,7 +28,6 @@ class BusWaiter implements Waiter
         
         $codeSearcher = new CodeSearcher();
         
-        
         return $codeSearcher->connectBus($busID);
        
     }
