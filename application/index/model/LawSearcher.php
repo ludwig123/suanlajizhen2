@@ -14,9 +14,11 @@ define('TABLE_NAME', [
 class LawSearcher{
 
     public function  law($name, $index){
-        $tableName = $this->table_name($name);
-        if ($tableName)
-             return $this->law_real($tableName, $index);
+        $tableName = $this->translateTableName($name);
+        if ($tableName){
+            $result =  $this->law_real($tableName, $index);
+            return $result;
+        }
         else return "can't understand law name you input!";
     }
     
@@ -31,12 +33,12 @@ class LawSearcher{
         
         if ($index <= $max && $index >= 1) {
             $result = Db::name($tableName)->where('id', $index)->find();
-            return $result;
+            return $result['法律条文'];
         }
     }
     
     
-    private function table_name($name)
+    public function translateTableName($name)
     {
         switch ($name) {
             case "法":

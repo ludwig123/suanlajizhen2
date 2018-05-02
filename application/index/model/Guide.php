@@ -45,7 +45,11 @@ class Guide
         if ($this->isCarSearch()){
             return new BusWaiter();
         }
+        if ($this->isLawSearch()){
         return new LawWaiter($this->input);
+        }
+        
+        return new CodeWaiter();
     }
     
     private function isCarSearch(){
@@ -59,7 +63,11 @@ class Guide
     }
     
     private function isLawSearch(){
-        
+        $lawSearch = new LawSearcher();
+        if ($lawSearch->translateTableName($this->input[0])){
+            return true;
+        }
+        else return false;
     }
     
     private function isCodeSearch(){

@@ -44,7 +44,8 @@ class LawSearcherTest extends PHPUnit_Framework_TestCase
  
     public function testLaw()
     {
-
+        $result = $this->lawSearcher->law('法', '99');
+        var_dump($result);
     }
 
     public function testLaw_fa()
@@ -54,32 +55,32 @@ class LawSearcherTest extends PHPUnit_Framework_TestCase
         $result =  $this->lawSearcher->law("法规",$index);
         $this->assertContains("can't understand", $result, "应该提示不知道输入的是什么law name");
         
-        $index200 = "200";
-        $result =  $this->lawSearcher->law("道交法", $index200);
+        $index = "200";
+        $result =  $this->lawSearcher->law("道交法", $index);
         $this->assertContains("index should <=", $result);
         
-        $indexless = -11;
-        $result =  $this->lawSearcher->law("道交法", $indexless);
+        $index = -11;
+        $result =  $this->lawSearcher->law("道交法", $index);
         $this->assertContains("index should >= 1", $result);
         
-        $index1 = 1;
-        $result =  $this->lawSearcher->law("法",$index1);
-        $this->assertEquals(1, $result['id']);
+        $index = 1;
+        $result =  $this->lawSearcher->law("法",$index);
+        $this->assertContains('第一条', $result);
         
-        $result =  $this->lawSearcher->law("办法",$index1);
-        $this->assertEquals(1, $result['id']);
+        $result =  $this->lawSearcher->law("办法",$index);
+        $this->assertContains('第一条', $result);
         
-        $result =  $this->lawSearcher->law("条例",$index1);
-        $this->assertEquals(1, $result['id']);
+        $result =  $this->lawSearcher->law("条例",$index);
+        $this->assertContains('第一条', $result);
         
-        $result =  $this->lawSearcher->law("机动车规定",$index1);
-        $this->assertEquals(1, $result['id']);
+        $result =  $this->lawSearcher->law("机动车规定",$index);
+        $this->assertContains('第一条', $result);
         
-        $result =  $this->lawSearcher->law("驾驶证规定",$index1);
-        $this->assertEquals(1, $result['id']);
+        $result =  $this->lawSearcher->law("驾驶证规定",$index);
+        $this->assertContains('第一条', $result);
         
-        $result =  $this->lawSearcher->law("校车规定",$index1);
-        $this->assertEquals(1, $result['id']);
+        $result =  $this->lawSearcher->law("校车规定",$index);
+        $this->assertContains('第一条', $result);
     }
 }
 
