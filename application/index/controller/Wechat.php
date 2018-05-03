@@ -2,6 +2,7 @@
 namespace app\index\controller;
 use EasyWeChat\Factory;
 use app\index\model\Guide;
+use think\Db;
 
 class Wechat
 {
@@ -24,6 +25,19 @@ class Wechat
         $app = Factory::officialAccount($config);
         
         $app->server->push(function ($message) {
+
+            $startTime = microtime(true);
+            $data = [
+            'FromUserName'=>$message['FromUserName'],
+            'ToUserName'=>$message['ToUserName'],
+            'Content'=> $message['Content'],
+            'CreateTime'=> $message['CreateTime'],
+            'Time'=> strftimeBejing($message['CreateTime']),
+            'MsgId' => $message['MsgId'] 
+            ];
+            
+            $id = Db::name('weixin_text_message')->insertGetId($data);
+            
             switch ($message['MsgType']) {
                 case 'event':
                     return '收到事件消息';
@@ -31,6 +45,7 @@ class Wechat
                 case 'text':
                     $guide = new Guide($message['FromUserName'], $message['Content']);
                     $reply = $guide->startTalk();
+                    Db::name('weixin_text_message')->where('id', $id)->update(['reply'=>$reply, 'CostTime'=> microtime(true) - $startTime]);
                     return $reply;
                     break;
                 case 'image':

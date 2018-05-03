@@ -25,3 +25,7 @@ function isMatch($pattern , $srcText){
     }
     return true;
 }
+
+function strftimeBejing($unixTime){
+   return gmstrftime("%Y-%m-%d %H:%M:%S 星期%u", 1525347972+8*3600);
+}

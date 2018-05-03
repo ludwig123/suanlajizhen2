@@ -3,12 +3,13 @@
 
 $url = 'http://localhost/suanlajizhen2/public/index.php/index/wechat/index';
 // test_help($url );
-//test_code_search($url);
-test_law($url);
+test_code_search($url);
+// test_law($url);
  //test_next_page($url);
 // test_next_page_search_in_result();
 
 
+echo gmstrftime("%Y-%m-%d %H:%M:%S 星期%u", 1525347972+8*3600);
  
 function request_data($url, $input){
 	$watchStart = microtime(TRUE);
@@ -33,6 +34,7 @@ curl_close($ch);
 
 $timeCost = microtime(TRUE) -$watchStart;
 if ($data != null){
+    var_dump($data);
 	preg_match("/<Content><!\[CDATA\[[\s\S]*?]]><\/Content>/", $data,$match1);
 	preg_match('/A\[[\s\S]*?]/', $match1[0],$match2);
 	return "$timeCost" .'<br>'. "$match2[0]";
