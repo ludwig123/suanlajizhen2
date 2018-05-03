@@ -11,6 +11,15 @@ define('TABLE_NAME', [
     '驾驶证规定' => 'law_jiashizhengguiding',
     '校车规定' => 'law_xiaoche'
 ]);
+
+define('LAW_NAME', [
+    'law_fa' => '《道交法》',
+    'law_banfa' => '《湖南实施<道交法>办法》',
+    'law_tiaoli' => '《<道交法>实施条例》',
+    'law_jidongcheguiding' => '《机动车规定》',
+    'law_jiashizhengguiding' => '《驾驶证规定》',
+    'law_xiaoche' => '《校车规定》'
+]);
 class LawSearcher{
 
     public function  law($name, $index){
@@ -33,7 +42,7 @@ class LawSearcher{
         
         if ($index <= $max && $index >= 1) {
             $result = Db::name($tableName)->where('id', $index)->find();
-            return $result['法律条文'];
+            return LAW_NAME[$tableName].'\n'.$result['法律条文'];
         }
     }
     
