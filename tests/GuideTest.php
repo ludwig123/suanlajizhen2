@@ -54,8 +54,13 @@ class GuideTest extends PHPUnit_Framework_TestCase
         $userInput = "11110";
         $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
         $reply = $guide->startTalk();
-        var_dump($reply);
         $this->assertContains("11110", $reply);
+        
+        $userInput = "1";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        var_dump($guide);
+        $reply = $guide->startTalk();
+        $this->assertContains("第四十八条", $reply);
         
         $userInput = "11111";
         $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);

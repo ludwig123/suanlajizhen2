@@ -64,6 +64,7 @@ class LawSearcher{
                 
                 
             case "校车规定":
+            case "校车":
                 return TABLE_NAME['校车规定'];
                 
             default:

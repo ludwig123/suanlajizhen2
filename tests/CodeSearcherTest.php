@@ -107,5 +107,12 @@ class CodeSearcherTest extends TestCase
         $this->assertEquals(3, count($result));
     }
     
+    public function testTextSearch(){
+        $text = '放大号牌';
+        $result = $this->codeSearcher->search($text);
+        var_dump($result);
+//         $this->assertEquals('11110', $result[0]['违法代码'], "应该返回11110的结果");
+    }
+    
 }
 

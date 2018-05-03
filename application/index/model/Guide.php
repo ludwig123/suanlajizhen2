@@ -3,16 +3,23 @@ namespace app\index\model;
 
 use app\index\model\Tokenizer;
 
-/**导购员
- * @author ludwig
+/**
+ * 导购员
  *
+ * @author ludwig
+ *        
  */
 class Guide
 {
+
     private $userID, $input;
-        /**
-     * @param String $userID 用户ID
-     * @param String $rawInput 用户的消息
+
+    /**
+     *
+     * @param String $userID
+     *            用户ID
+     * @param String $rawInput
+     *            用户的消息
      */
     public function __construct($userID, $rawInput)
     {
@@ -20,79 +27,82 @@ class Guide
         
         $tokenizer = new Tokenizer();
         $this->input = $tokenizer->split($rawInput);
-        
     }
 
-    public function startTalk(){
-        
-        if (count($this->input) == 0) return "您的输入不存在！";
+    public function startTalk()
+    {
+        if (count($this->input) == 0)
+            return "您的输入不存在！";
         
         $waiter = $this->lastWaiter();
         
-        //找到上次的服务员
-        if ($waiter != null){
+        // 找到上次的服务员
+        if ($waiter != null) {
             $reply = $waiter->reply($this->input);
-            if ($reply != null){
-                return $reply;
+            if ($reply == null) {
+                $waiter = $this->newWaiter();
             }
-            else $waiter =  $this->newWaiter();
-        }
-        //没有找到上次的服务员
+        }        // 没有找到上次的服务员
         else {
-           $waiter =  $this->newWaiter();
+            $waiter = $this->newWaiter();
         }
         
         $reply = $waiter->reply($this->input);
         
         $this->registerWaiter($waiter);
-       return $reply;
-        
+        return $reply;
     }
-    
-    public function lastWaiter(){
+
+    public function lastWaiter()
+    {
         $waiter = cache($this->userID);
         return $waiter;
     }
-    
-    private function registerWaiter($waiter){
+
+    private function registerWaiter($waiter)
+    {
         cache($this->userID, $waiter);
     }
-    
-    public function newWaiter(){
-        if (self::isCarSearch($this->input)){
+
+    public function newWaiter()
+    {
+        if (self::isCarSearch($this->input)) {
             return new BusWaiter();
         }
-        if (self::isLawSearch($this->input)){
-        return new LawWaiter($this->input);
+        if (self::isLawSearch($this->input)) {
+            return new LawWaiter($this->input);
         }
         
         return new CodeWaiter();
     }
-    
-    static function isCarSearch($input){
+
+    static function isCarSearch($input)
+    {
         $dictstr = "京 津 沪 渝 蒙 新 藏 宁 桂 港 澳 黑 吉 辽 晋 冀 青 鲁 豫 苏 皖 浙 闽 赣 湘 鄂 粤 琼 甘 陕 贵 川 云";
         $dictArr = explode(" ", $dictstr);
-        foreach ($dictArr as $v){
+        foreach ($dictArr as $v) {
             if ($v == $input[0])
                 return true;
-        } 
+        }
         return false;
     }
-    
-    static function isLawSearch($input){
+
+    static function isLawSearch($input)
+    {
         $lawSearch = new LawSearcher();
-        if ($lawSearch->translateTableName($input[0])){
+        if ($lawSearch->translateTableName($input[0])) {
             return true;
-        }
-        else return false;
+        } else
+            return false;
     }
-    
-    static function isCodeSearch($input){
-        if (self::isCarSearch($input) || self::isCarSearch($input)){
-          return false;  
-        }
-        
-        else return true;
+
+    static function isCodeSearch($input)
+    {
+        if (self::isCarSearch($input) || self::isLawSearch($input)) {
+            return false;
+        } 
+        else
+            return true;
     }
 }
 

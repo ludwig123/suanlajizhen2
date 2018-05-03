@@ -13,7 +13,10 @@ class CodeSearcher
         
         $map = $this->createMap($input);
         $result = db('daima2016')->where($map)->select();
-        
+        if ($result == []){
+            $result = db('daima2016')->whereOr($map)->select();
+        }
+       
         return $result;
         
         
@@ -24,6 +27,23 @@ class CodeSearcher
      * @return NULL|array
      */
     public function codeSearch($code){
+        $result = null;
+        while (($result = $this->codeOnlySearch($code)) == null){
+            $code = $this->deleteLastChar($code);
+        }
+        return $result;
+    }
+    
+    public function textSearch($code){
+        $result = null;
+        while (($result = $this->codeOnlySearch($code)) == null){
+            $code = $this->deleteLastChar($code);
+        }
+        return $result;
+    }
+    
+    
+    public function textSearchOR($code){
         $result = null;
         while (($result = $this->codeOnlySearch($code)) == null){
             $code = $this->deleteLastChar($code);
