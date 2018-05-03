@@ -42,7 +42,7 @@ class LawSearcher{
         
         if ($index <= $max && $index >= 1) {
             $result = Db::name($tableName)->where('id', $index)->find();
-            return LAW_NAME[$tableName].'\n'.$result['法律条文'];
+            return LAW_NAME[$tableName]."\n".$result['法律条文'];
         }
     }
     
