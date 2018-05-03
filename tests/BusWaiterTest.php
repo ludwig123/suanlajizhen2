@@ -50,10 +50,7 @@ class BusWaiterTest extends PHPUnit_Framework_TestCase
      */
     public function testReply()
     {
-        // TODO Auto-generated BusWaiterTest->testReply()
-        $this->markTestIncomplete("reply test not implemented");
-        
-        $this->busWaiter->reply(/* parameters */);
+
     }
 }
 

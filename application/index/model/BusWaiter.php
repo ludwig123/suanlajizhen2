@@ -43,5 +43,18 @@ class BusWaiter implements Waiter
         }
         return true;
     }
+    
+    private function isFiveChar($str){
+        $pattern = '/[a-zA-z0-9]/u';
+        $mathces = array();
+        if (preg_match_all($pattern, $str, $mathces))
+        {
+            if ($mathces == null)
+                return false;
+                if (count($mathces[0]) != 5)
+                    return false;
+        }
+        return true;
+    }
 }
 
