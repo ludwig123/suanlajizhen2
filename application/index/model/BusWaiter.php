@@ -5,6 +5,10 @@ class BusWaiter implements Waiter
 {
     public function reply($input)
     {
+        if (!Guide::isCarSearch($input)){
+            return null;
+        }
+        //车牌第二位必须是字母
         if (! $this->isAlpha($input[1])){
             return "车牌第2位应该是字母!";
         }
@@ -14,7 +18,6 @@ class BusWaiter implements Waiter
             $fiveChar .= $input[$i];
         }
             
-        
         if (! $this->isFiveChar($fiveChar)){
             return '车牌后5位应该是由数字和字母组成!';
         }
@@ -39,25 +42,6 @@ class BusWaiter implements Waiter
             return false;
         }
         return true;
-            
     }
-    
-    private function isFiveChar($str){
-        $pattern = '/[a-zA-z0-9]/u';
-        $mathces = array();
-        if (preg_match_all($pattern, $str, $mathces))
-        {
-            if ($mathces == null)
-                return false;
-            if (count($mathces[0]) != 5)
-                return false;
-        }
-        return true;
-    }
-    
-    private function isLegalFive($str){
-        
-    }
-    
 }
 

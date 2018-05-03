@@ -28,11 +28,24 @@ class Guide
         if (count($this->input) == 0) return "您的输入不存在！";
         
         $waiter = $this->lastWaiter();
-        if ($waiter == null){
-            $waiter = $this->newWaiter();
+        
+        //找到上次的服务员
+        if ($waiter != null){
+            $reply = $waiter->reply($this->input);
+            if ($reply != null){
+                return $reply;
+            }
+            else $waiter =  $this->newWaiter();
+        }
+        //没有找到上次的服务员
+        else {
+           $waiter =  $this->newWaiter();
         }
         
-       return $waiter->reply($this->input);
+        $reply = $waiter->reply($this->input);
+        
+        $this->registerWaiter($waiter);
+       return $reply;
         
     }
     
@@ -41,37 +54,45 @@ class Guide
         return $waiter;
     }
     
+    private function registerWaiter($waiter){
+        cache($this->userID, $waiter);
+    }
+    
     public function newWaiter(){
-        if ($this->isCarSearch()){
+        if (self::isCarSearch($this->input)){
             return new BusWaiter();
         }
-        if ($this->isLawSearch()){
+        if (self::isLawSearch($this->input)){
         return new LawWaiter($this->input);
         }
         
         return new CodeWaiter();
     }
     
-    private function isCarSearch(){
+    static function isCarSearch($input){
         $dictstr = "京 津 沪 渝 蒙 新 藏 宁 桂 港 澳 黑 吉 辽 晋 冀 青 鲁 豫 苏 皖 浙 闽 赣 湘 鄂 粤 琼 甘 陕 贵 川 云";
         $dictArr = explode(" ", $dictstr);
         foreach ($dictArr as $v){
-            if ($v == $this->input[0])
+            if ($v == $input[0])
                 return true;
         } 
         return false;
     }
     
-    private function isLawSearch(){
+    static function isLawSearch($input){
         $lawSearch = new LawSearcher();
-        if ($lawSearch->translateTableName($this->input[0])){
+        if ($lawSearch->translateTableName($input[0])){
             return true;
         }
         else return false;
     }
     
-    private function isCodeSearch(){
+    static function isCodeSearch($input){
+        if (self::isCarSearch($input) || self::isCarSearch($input)){
+          return false;  
+        }
         
+        else return true;
     }
 }
 

@@ -64,14 +64,14 @@ class MyBookTest extends PHPUnit_Framework_TestCase
         $this->myBook = new MyBook($result);
         $book = $this->myBook->replyDetail($result);
         $this->assertContains($words[0], $book[0]);
-        $this->assertEquals(1, count($book));
+        $this->assertEquals(5, count($book));
         
         $words = ['111111'];
         $result = $codeSearcher->search($words);
         $this->myBook = new MyBook($result);
         $book = $this->myBook->replyDetail($result);
         $this->assertContains('11110', $book[0]);
-        $this->assertEquals(1, count($book));
+        $this->assertEquals(5, count($book));
         
         $words = ['111'];
         $result = $codeSearcher->search($words);

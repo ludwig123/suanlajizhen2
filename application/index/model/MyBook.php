@@ -13,15 +13,15 @@ class MyBook
         $this->book = $this->replyDetail($cursor);
     }
     
-    private function goPage($index){
+    public function goPage($index){
         return $this->book[$index];
     }
     
-    private function goCatalog(){
+    public function goCatalog(){
         return $this->book[0];
     }
     
-    private function maxPageNumber(){
+    public function maxPageNumber(){
         return count($this->book);
     }
     
@@ -73,11 +73,12 @@ class MyBook
         
         //如果只有一条结果
         if ($countResult == 1){
+            $pages = $this->getLawPages($content);
             $content .= "查询到" . $countResult . "条记录\n输入对应数字可查看详细内容：\n"
                 . $this->genrateChoice($content) ;
             $book = [$content];
-            array_merge($book, $this->getLawPages($content));
-            return $book;
+           return array_merge($book, $pages);
+            
         }
         else {
             $content = $content . "查询到" . $countResult . "条记录\n" ;

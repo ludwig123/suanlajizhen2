@@ -4,7 +4,7 @@ namespace app\index\model;
 class CodeSearcher
 {
     public function getBook($input){
-        new MyBook($this->search($input));
+        return new MyBook($this->search($input));
     }
     
     public function search($input){

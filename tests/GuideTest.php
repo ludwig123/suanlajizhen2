@@ -50,6 +50,28 @@ class GuideTest extends PHPUnit_Framework_TestCase
         
     }
     
+    public function testCodeSearch(){
+        $userInput = "11110";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        $reply = $guide->startTalk();
+        var_dump($reply);
+        $this->assertContains("11110", $reply);
+        
+        $userInput = "11111";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        $reply = $guide->startTalk();
+        $this->assertContains("11110", $reply);
+        
+        $userInput = "100元3分";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        $reply = $guide->startTalk();
+        $this->assertContains("13130", $reply);
+
+        $userInput = "111";
+        $guide = new Guide("oG24uwN10qZXaFm9KZLdeRj2inu0",$userInput);
+        $reply = $guide->startTalk();
+        $this->assertContains("11150", $reply);
+    }
     
     public function testCarSearch(){
         $userInput = "湘D9999922";

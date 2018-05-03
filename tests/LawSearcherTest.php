@@ -45,7 +45,7 @@ class LawSearcherTest extends PHPUnit_Framework_TestCase
     public function testLaw()
     {
         $result = $this->lawSearcher->law('法', '99');
-        var_dump($result);
+        $this->assertContains('第九十九条', $result);
     }
 
     public function testLaw_fa()

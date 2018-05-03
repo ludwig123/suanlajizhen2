@@ -7,15 +7,18 @@ class CodeWaiter implements Waiter
     private $book;
     public function reply($input)
     {
+        if (!Guide::isCodeSearch($input)){
+            return null;
+        }
         
         if ($this->book != null  && ($input[0] < $this->book->maxPageNumber())){
-            return $book->goPage($input[0]);
+            return $this->book->goPage($input[0]);
         }
         
         $codeSearcher = new CodeSearcher();
         $this->book = $codeSearcher->getBook($input);
         
-        return $book->goCatalog;
+        return $this->book->goCatalog();
            
     }
     
