@@ -56,5 +56,10 @@ class BusWaiter implements Waiter
         }
         return true;
     }
+    public function serviceType()
+    {
+        return "bus-search";
+    }
+
 }
 
