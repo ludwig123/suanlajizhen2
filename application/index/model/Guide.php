@@ -61,7 +61,7 @@ class Guide
 
     private function registerWaiter($waiter)
     {
-        cache($this->userID, $waiter);
+        cache($this->userID, $waiter, 180);
     }
 
     public function newWaiter()
