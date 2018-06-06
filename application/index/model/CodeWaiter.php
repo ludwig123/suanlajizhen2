@@ -4,14 +4,15 @@ namespace app\index\model;
 
 class CodeWaiter implements Waiter
 {
-    private $book, $serviceType;
+    private $book;
+    private $serviceType = "code";
+    
     public function reply($input)
     {
         if (!Guide::isCodeSearch($input)){
             return null;
         }
         
-        $this->serviceType = 'code';
         if (is_numeric($input[0]) && $this->book != null  && ($input[0] < $this->book->maxPageNumber())){
             $this->serviceType = 'code-toPage';
             return $this->book->goPage($input[0]);
