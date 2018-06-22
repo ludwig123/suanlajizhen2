@@ -39,7 +39,7 @@ class Wechat
             
             switch ($message['MsgType']) {
                 case 'event':
-                    return '欢迎使用本公众号，专注服务湖南交警，直接回复公众号即可查询：\n1、查代码：11110，3分200元；\n2、查法律：法99，办法12；\n3、查接驳证：川C19485';
+                    return "欢迎使用本公众号，专注服务湖南交警，直接回复公众号即可查询：\n1、查代码：11110，3分200元；\n2、查法律：法99，办法12；\n3、查接驳证：川C19485";
                     break;
                 case 'text':
                     $guide = new Guide($message['FromUserName'], $message['Content']);
