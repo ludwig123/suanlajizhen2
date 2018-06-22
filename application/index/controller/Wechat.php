@@ -30,10 +30,9 @@ class Wechat
             $data = [
             'FromUserName'=>$message['FromUserName'],
             'ToUserName'=>$message['ToUserName'],
-            'Content'=> $message['Content'],
             'CreateTime'=> $message['CreateTime'],
             'Time'=> strftimeBejing($message['CreateTime']),
-            'MsgId' => $message['MsgId'] 
+             
             ];
             
             $id = Db::name('weixin_text_message')->insertGetId($data);
@@ -45,7 +44,7 @@ class Wechat
                 case 'text':
                     $guide = new Guide($message['FromUserName'], $message['Content']);
                     $reply = $guide->startTalk();
-                    Db::name('weixin_text_message')->where('id', $id)->update(['reply'=>$reply, 'CostTime'=> microtime(true) - $startTime]);
+                    Db::name('weixin_text_message')->where('id', $id)->update(['reply'=>$reply,'Content'=> $message['Content'], 'MsgId' => $message['MsgId'],'CostTime'=> microtime(true) - $startTime]);
                     return $reply;
                     break;
                 case 'image':
