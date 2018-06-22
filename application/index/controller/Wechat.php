@@ -44,7 +44,7 @@ class Wechat
                     break;
                 case 'text':
                     $guide = new Guide($message['FromUserName'], $message['Content']);
-                    $dreply = $guide->startTalk();
+                    $reply = $guide->startTalk();
                     Db::name('weixin_text_message')->where('id', $id)->update(['reply'=>$reply, 'CostTime'=> microtime(true) - $startTime]);
                     return $reply;
                     break;
