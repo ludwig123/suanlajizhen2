@@ -12,10 +12,12 @@ namespace think\testing;
 
 use think\Error;
 use think\Exception;
+use think\exception\ThrowableError;
 use think\facade\App;
 use think\facade\Cookie;
 use think\facade\Request;
 use think\facade\Response;
+use think\facade\Route;
 use think\helper\Arr;
 use think\helper\Str;
 
@@ -74,12 +76,14 @@ trait CrawlerTrait
             $this->currentUri, $method, $parameters,
             $cookies, $files, array_replace($this->serverVariables, $server)
         );
+
         try {
-            $response = App::run($request);
+            Route::setRequest($request);
+            $response = App::bindTo('request', $request)->run();
         } catch (Exception $e) {
             $response = Error::getExceptionHandler()->render($e);
         } catch (\Throwable $e) {
-            $response = Error::getExceptionHandler()->render($e);
+            $response = Error::getExceptionHandler()->render(new ThrowableError($e));
         }
 
         return $this->response = $response;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the EasyWeChatComposer.
  *
- * (c) mingyoung <mingyoungcheung@gmail.com>
+ * (c) 张铭阳 <mingyoungcheung@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace EasyWeChatComposer;
 
 use EasyWeChat\Kernel\Contracts\EventHandlerInterface;
-use EasyWeChat\Kernel\ServiceContainer;
+use Pimple\Container;
 use ReflectionClass;
 
 class Extension
 {
     /**
-     * @var \EasyWeChat\Kernel\ServiceContainer
+     * @var \Pimple\Container
      */
     protected $app;
 
@@ -35,9 +35,9 @@ class Extension
     protected $manifest;
 
     /**
-     * @param \EasyWeChat\Kernel\ServiceContainer $app
+     * @param \Pimple\Container $app
      */
-    public function __construct(ServiceContainer $app)
+    public function __construct(Container $app)
     {
         $this->app = $app;
         $this->manifestPath = __DIR__.'/../extensions.php';
@@ -89,6 +89,8 @@ class Extension
      * @param mixed $observer
      *
      * @return bool
+     *
+     * @throws \ReflectionException
      */
     protected function validateObserver($observer): bool
     {
