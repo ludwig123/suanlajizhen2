@@ -6,7 +6,15 @@ class CodeSearcher
     public function getBook($input){
         return new MyBook($this->search($input));
     }
-    
+
+    /**
+     *  通过关键词搜索代码表
+     * @param $input
+     * @return array|NULL|\PDOStatement|string|\think\Collection  数据库结果的游标
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function search($input){
         if (is_numeric($input[0]) && count($input) == 1)
             return $this->codeSearch($input[0]);
@@ -16,10 +24,7 @@ class CodeSearcher
         if ($result == []){
             $result = db('daima2016')->whereOr($map)->select();
         }
-       
         return $result;
-        
-        
     }
     
     /**用数字查询代码，自动纠错，依次删除最后一位数字，直到查询结果不为null

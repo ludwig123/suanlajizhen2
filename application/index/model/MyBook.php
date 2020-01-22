@@ -1,8 +1,12 @@
 <?php
 namespace app\index\model;
-use function foo\func;
 
 const MAXLEN = 1500 ;
+
+/*
+ *  生成一本手册供数字翻页使用
+ *  避免每次翻页生成新的手册
+ */
 class MyBook
 {
     private $book;
@@ -33,7 +37,7 @@ class MyBook
         $pages = array(	);
         $i = 1;
         $content = '';
-        foreach ( $result as $item => $date ) {
+        foreach ( $result as $item => $data ) {
             
             $len = $this->lenCount($content);
             if ($len > MAXLEN){
@@ -42,7 +46,7 @@ class MyBook
                 $content = null;
             }
             
-            $content = $content . "代码：" . $date ['违法代码'] . "\n内容：" . $date ['违法内容'] . "\n\n";
+            $content = $content . "代码：" . $data ['违法代码'] . "\n内容：" . $data ['违法内容'] . "\n\n";
             
         }
 
@@ -75,7 +79,7 @@ class MyBook
         if ($countResult == 1){
             $pages = $this->getLawPages($content);
             $content .= "查询到" . $countResult . "条记录\n输入对应数字可查看详细内容：\n"
-                . $this->genrateChoice($content) ;
+                . $this->genrateLawChoice($content) ;
             $book = [$content];
            return array_merge($book, $pages);
             
@@ -84,8 +88,6 @@ class MyBook
             $content = $content . "查询到" . $countResult . "条记录\n" ;
             return [$content];
         }
-        
-        
     }
     
     /**仅回复代码，违法内容
@@ -125,7 +127,6 @@ class MyBook
                 $book[] = $v . "查询到" . count ( $result ) . "条记录\n请输入数字翻页:\n\n第"
                     .$this->stringPageNumber($k, $sum)."页";
             }
-            
         }
         return $book;
     }
@@ -135,22 +136,26 @@ class MyBook
         $tokenizer = new Tokenizer();
         $lawSearcher = new LawSearcher();
         $book = [];
-        foreach ($laws as $v){
-            $law = $tokenizer->split($v[0]);
-            $index = $tokenizer->split($v[1]);
+        foreach ($laws as $singleLaw){
+            $law = $tokenizer->split($singleLaw[0]);
+            $index = $tokenizer->split($singleLaw[1]);
             
             $book[] = $lawSearcher->law($law[0], $index[0]);
         }
         
         return $book;
-        
     }
-    
-    private function genrateChoice($text){
+
+    /** 从违则和罚则中生成数字排序的选项
+     * @param $text
+     * @return string
+     */
+    private function genrateLawChoice($text){
         $temp = $this->getLaws($text);
         $content = '';
         $i = 1;
         foreach ($temp as $t){
+            //1:《法》48条;
             $content = $content . $i.":".$t[0] .$t[1].";\n";
             $i++;
         }
