@@ -86,11 +86,20 @@ class MyBook
             $pages = $this->getLawPages($content);
             $content .= "查询到" . $countResult . "条记录\n输入对应数字可查看详细内容：\n"
                 . $this->genrateLawChoice($content) ;
-            $content .= '9:代码释义(公众号:两拐，提供支持)';
-            $book = [$content];
-            $finalBook = array_merge($book, $pages);
-            $finalBook[9] = (new Liangguai())->url('10010');
 
+            $liangGuaiUrl = (new Liangguai())->url('10010');
+            if (!empty($liangGuaiUrl))
+            {
+                $content .= '9:代码释义(公众号:两拐，提供支持)';
+                $book = [$content];
+                $finalBook = array_merge($book, $pages);
+                $finalBook[9] = $liangGuaiUrl;
+            }
+             else
+             {
+                 $book = [$content];
+                 $finalBook = array_merge($book, $pages);
+             }
             return $finalBook;
         }
         else {
