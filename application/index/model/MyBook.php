@@ -87,7 +87,8 @@ class MyBook
             $content .= "查询到" . $countResult . "条记录\n输入对应数字可查看详细内容：\n"
                 . $this->genrateLawChoice($content) ;
 
-            $liangGuaiUrl = (new Liangguai())->url('10010');
+            $code = ''.$result[0]['违法代码'];
+            $liangGuaiUrl = (new Liangguai())->url($code);
             if (!empty($liangGuaiUrl))
             {
                 $content .= '9:代码释义(公众号:两拐，提供支持)';
