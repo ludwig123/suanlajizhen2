@@ -13,7 +13,7 @@ class CodeWaiter implements Waiter
             return null;
         }
         
-        if (is_numeric($input[0]) && $this->book != null  && ($input[0] < $this->book->maxPageNumber())){
+        if (is_numeric($input[0]) && $this->book != null  && ($this->book->existPage($input[0]))){
             $this->serviceType = 'code-toPage';
             return $this->book->goPage($input[0]);
         }

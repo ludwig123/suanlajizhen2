@@ -85,7 +85,7 @@ class Liangguai
         $this->urlDict = Cache::get('urlDict');
         if (empty($this->urlDict))
         {
-            $this->urlDict = $this->makeUrlDict();
+            $this->makeUrlDict();
             Cache::set('urlDict', $this->urlDict, 86400); //缓存以秒为单位
         }
     }
@@ -96,7 +96,6 @@ class Liangguai
     private function makeUrlDict()
     {
         $text = $this->getHtmlPage();
-        $urlDict = $this->makeUrlDictFromHtmlPage($text);
-        return $urlDict;
+        $this->makeUrlDictFromHtmlPage($text);
     }
 }

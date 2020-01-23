@@ -1,12 +1,13 @@
 <?php
 // mb_internal_encoding("UTF-8");
 
-$url = 'http://localhost/suanlajizhen2/public/index.php/index/wechat/index';
+$url = 'http://localhost/suanlajizhen/public/index.php/index/wechat/index';
 // test_help($url );
 test_code_search($url);
  test_law($url);
  //test_next_page($url);
 // test_next_page_search_in_result();
+test_liangguai($url);
 
 
 echo gmstrftime("%Y-%m-%d %H:%M:%S 星期%u", 1525347972+8*3600);
@@ -62,6 +63,16 @@ function test_code_search($url){
 		echo $v.'：'."<html><head></head><body>".$result."</bode>";
 		echo "<br><br>";
 	}
+}
+
+function test_liangguai($url){
+    $input =array('10010','9');
+
+    foreach ($input as $v){
+        $result = request_data($url, $v);
+        echo $v.'：'."<html><head></head><body>".$result."</bode>";
+        echo "<br><br>";
+    }
 }
 
 function test_law($url){

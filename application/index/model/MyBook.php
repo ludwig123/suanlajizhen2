@@ -1,6 +1,7 @@
 <?php
 namespace app\index\model;
 
+use app\index\domain\Liangguai;
 const MAXLEN = 1500 ;
 
 /*
@@ -27,6 +28,11 @@ class MyBook
     
     public function maxPageNumber(){
         return count($this->book);
+    }
+
+    public function existPage($pageNum)
+    {
+       return array_key_exists($pageNum, $this->book);
     }
     
     /**把分页的结果存储在以1开始的array中
@@ -80,9 +86,12 @@ class MyBook
             $pages = $this->getLawPages($content);
             $content .= "查询到" . $countResult . "条记录\n输入对应数字可查看详细内容：\n"
                 . $this->genrateLawChoice($content) ;
+            $content .= '9:代码释义(公众号:两拐，提供支持)';
             $book = [$content];
-           return array_merge($book, $pages);
-            
+            $finalBook = array_merge($book, $pages);
+            $finalBook[9] = (new Liangguai())->url('10010');
+
+            return $finalBook;
         }
         else {
             $content = $content . "查询到" . $countResult . "条记录\n" ;

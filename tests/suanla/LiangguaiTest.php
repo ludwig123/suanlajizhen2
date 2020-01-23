@@ -13,4 +13,11 @@ class LiangguaiTest extends TestCase
         $this->assertNotEmpty($result);
 
     }
+
+    public function testUrlDict_works()
+    {
+        $result = (new Liangguai())->url('10010');
+        $this->assertNotEmpty($result);
+
+    }
 }

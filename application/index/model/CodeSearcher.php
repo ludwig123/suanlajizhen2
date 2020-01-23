@@ -1,6 +1,8 @@
 <?php
 namespace app\index\model;
 
+use think\Exception;
+
 class CodeSearcher
 {
     public function getBook($input){
@@ -90,7 +92,13 @@ class CodeSearcher
      * @return Array
      */
     public function codeOnlySearch($code){
-        $result = db( 'daima2016' )->where ('违法代码', 'like', '%'.$code.'%')->field ( 'ID', TRUE )->select ();
+        try{
+            $result = db( 'daima2016' )->where ('违法代码', 'like', '%'.$code.'%')->field ( 'ID', TRUE )->select ();
+        }
+        catch (Exception $e){
+            var_dump($e);
+        }
+
         return $result;
     }
 
