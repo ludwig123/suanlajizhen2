@@ -21,14 +21,4 @@ class LawWaiter implements Waiter{
         $lawSearcher = new LawSearcher();
         return $lawSearcher->law($lawName, $lawIndex);
     }
-    
-    public function serviceType()
-    {
-        return "law-search";
-    }
-
-
-
-    
-    
 }

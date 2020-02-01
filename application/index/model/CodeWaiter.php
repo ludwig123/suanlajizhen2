@@ -24,13 +24,5 @@ class CodeWaiter implements Waiter
         return $this->book->goCatalog();
            
     }
-    
-    public function serviceType()
-    {
-        return $this->serviceType;
-    }
-
-    
-
 }
 
