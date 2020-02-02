@@ -124,4 +124,19 @@ class CodeSearcherModel
         var_dump($e);
     }
 
+    public function searchByAlias($input)
+    {
+        $words = preg_split('//u',$input,-1, PREG_SPLIT_NO_EMPTY);
+        if (count($words) < 2) return [];
+        $word = '';
+        foreach ($words as $k => $v)
+        {
+            $word .= '%'.$v;
+        }
+        $word .= '%';
+
+        return db('weifa_alias')->where('alias', 'like', $word)->select();
+
+    }
+
 }
