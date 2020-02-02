@@ -5,7 +5,7 @@ $url = 'http://localhost/suanlajizhen/public/index.php/index/wechat/index';
 // test_help($url );
 test_code_search($url);
  test_law($url);
- //test_next_page($url);
+ test_next_page($url);
 // test_next_page_search_in_result();
 test_liangguai($url);
 
