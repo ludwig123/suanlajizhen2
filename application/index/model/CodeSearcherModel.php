@@ -30,7 +30,7 @@ class CodeSearcherModel
             $result = db( 'daima2016' )->where ('违法代码', 'like', '%'.$code.'%')->field ( 'ID', TRUE )->select ();
         }
         catch (Exception $e){
-            var_dump($e);
+            $this->dbErroTips();
         }
 
         return $result;
@@ -54,13 +54,20 @@ class CodeSearcherModel
         }
         catch (Exception $exception)
         {
-            echo('something wrong with db operation');
+            $this->dbErroTips();
         }
     }
 
     private function searchOr($map)
     {
+        try
+        {
         return db('daima2016')->where($map)->select();
+        }
+        catch (Exception $exception)
+        {
+            $this->dbErroTips();
+        }
     }
 
 
@@ -109,6 +116,11 @@ class CodeSearcherModel
     private function isText($word){
         $pattern = '/^[\x{4e00}-\x{9fa5}$]{1,}/u';
         return isMatch($pattern, $word);
+    }
+
+    private function dbErroTips()
+    {
+        echo('something wrong with db operation in'.__FILE__.'at line '.__LINE__);
     }
 
 }
