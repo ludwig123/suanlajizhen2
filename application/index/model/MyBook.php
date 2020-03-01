@@ -91,10 +91,9 @@ class MyBook
             $liangGuaiUrl = (new Liangguai())->url($code);
             if (!empty($liangGuaiUrl))
             {
-                $content .= '9:代码释义(公众号:两拐，提供支持)';
+                $content .= '<a href=\''.$liangGuaiUrl.'\'>违法详解</a>';
                 $book = [$content];
                 $finalBook = array_merge($book, $pages);
-                $finalBook[9] = $liangGuaiUrl;
             }
              else
              {
@@ -161,7 +160,6 @@ class MyBook
             
             $book[] = $lawSearcher->law($law[0], $index[0]);
         }
-        
         return $book;
     }
 

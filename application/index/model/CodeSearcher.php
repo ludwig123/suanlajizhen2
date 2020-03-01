@@ -15,7 +15,7 @@ class CodeSearcher
     /**
      *  通过关键词搜索代码表
      * @param $input
-     * @return array|NULL|\PDOStatement|string|\think\Collection  数据库结果的游标
+     * @return \think\Collection  数据库结果的游标
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
@@ -65,7 +65,7 @@ class CodeSearcher
             $liangGuaiUrl = (new Liangguai())->url($code);
             if (!empty($liangGuaiUrl))
             {
-                $content .= '9:代码释义(公众号:两拐，提供支持)';
+                $content .= '<a href=\''.$liangGuaiUrl.'\'>违法详解</a>';
                 $book = [$content];
                 $finalBook = array_merge($book, $pages);
                 $finalBook[9] = $liangGuaiUrl;
@@ -212,5 +212,15 @@ class CodeSearcher
 
     private function lenCount($content){
         return strlen($content);
+    }
+
+    private function summaryShow($cursor)
+    {
+        $book = [];
+        foreach ( $cursor as $item => $date ) {
+            $content = '';
+            $book[] = $content . "代码：" . $date['违法代码'] . "\n内容：" . $date['违法内容'] . "\n\n";
+        }
+        return $book;
     }
 }
