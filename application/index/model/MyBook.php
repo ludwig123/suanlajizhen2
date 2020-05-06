@@ -91,7 +91,7 @@ class MyBook
             $liangGuaiUrl = (new Liangguai())->url($code);
             if (!empty($liangGuaiUrl))
             {
-                $content .= '<a href=\''.$liangGuaiUrl.'\'>违法详解</a>';
+                $content .= '<a href=\''.$liangGuaiUrl.'\'>点我深入了解本代码</a>';
                 $book = [$content];
                 $finalBook = array_merge($book, $pages);
             }
