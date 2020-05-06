@@ -27,14 +27,6 @@ class AboutMeModel
 
     public function queryCountCurrentYear($openId, $from = null, $end = null)
     {
-//        $map['FromUserName'] = ['=', $openId];
-//        if (!empty($from)) {
-//            $map['Time'] = ['like', '%'.$from.'%'];
-//        }
-//        if (!empty($end)) {
-//            $map['Time'] = ['<', $end];
-//        }
-
         return Db::table($this->table)
             ->where('FromUserName','=', $openId)
             ->where('Time','like', $from.'%')
