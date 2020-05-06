@@ -1,6 +1,7 @@
 <?php
 namespace app\index\model;
 
+use app\index\domain\AboutMe;
 use app\index\model\Tokenizer;
 
 /**
@@ -33,6 +34,13 @@ class Guide
     {
         if (count($this->input) == 0)
             return "您的输入不存在！";
+
+        if ($this->input[0] == '我')
+        {
+            $waiter = new AboutMeWaiter($this->userID);
+            return $waiter->reply($this->input);
+        }
+
         
         $waiter = $this->lastWaiter();
         
@@ -104,5 +112,6 @@ class Guide
         else
             return true;
     }
+
 }
 
