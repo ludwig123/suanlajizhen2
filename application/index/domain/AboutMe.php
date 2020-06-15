@@ -41,7 +41,8 @@ class AboutMe
         $gameCount = round($totalCount * 3 / 20,1);
         $musicCount = $currentYearCount;
 
-        $text = "您第一次遇见酸辣季真在".$firstMeet."\n从那一刻开始到今天您一共查询".$totalCount."次\n为您节省了".($totalCount*3)."分钟，可以让您多打".$gameCount."局王者农药\n今年您一共查询了".$currentYearCount."次，".$this->avarageText($average, $currentYearCount);
+        $text = $firstMeet."\n您第一次遇见酸辣季真\n\n从那一刻开始到今天您和我说了".$totalCount."句话\n\n我为您节省了".($totalCount*3)."分钟\n\n让您多打".$gameCount."局王者农药\n\n今年您一共查询了".$currentYearCount."次\n\n".$this->avarageText($average, $currentYearCount);
+
 
         return $text;
 
