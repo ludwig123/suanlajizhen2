@@ -26,7 +26,9 @@ class Liangguai
      */
     public function url($code)
     {
-        return $this->urlDict[$code];
+        if (array_key_exists($code, $this->urlDict))
+            return $this->urlDict[$code];
+        return '';
     }
 
 
